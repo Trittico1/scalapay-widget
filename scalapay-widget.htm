@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Scalapay Widget Dinamico</title>
+  <script type="module" src="https://cdn.scalapay.com/widget/scalapay-widget-loader.js?version=V5"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    #price-container {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="price-container">€ 100.00</div>
+  <scalapay-widget
+    type="product"
+    min="5"
+    max="1500"
+    amount-selectors='["#price-container"]'
+    currency-position="before"
+    currency-display="symbol"
+    locale="it"
+    environment="production"
+    merchant-token="8KDS3SPEL"
+  ></scalapay-widget>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const price = parseFloat(urlParams.get('price'));
+    if (!isNaN(price)) {
+      document.getElementById('price-container').innerText = '€ ' + price.toFixed(2);
+    }
+  </script>
+</body>
+</html>
